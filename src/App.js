@@ -6,7 +6,7 @@ import Products from "./Components/Products/Products";
 import Cart from "./Components/Cart/Cart";
 import Login from "./Components/Login/Login";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './App.css'
 export default function App() {
   return (
     <BrowserRouter>
