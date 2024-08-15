@@ -7,7 +7,7 @@ import Lottie from 'lottie-react';
 import pendingAnimationData from '../../loading.json'
 import rejectedAnimationData from '../../error.json'
 
-export default function Products() {
+export default function Home() {
 
   const dispatch = useDispatch()
   const { products, status, error } = useSelector((state) => state.products)

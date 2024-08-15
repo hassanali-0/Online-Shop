@@ -6,7 +6,6 @@ import Navbar from 'react-bootstrap/Navbar'
 import { useSelector } from 'react-redux'  
 
 export default function Header(props) {
-    // console.log("kjhjgf", localStorage.getItem("authToken"))
     const token = useSelector((state) => state.auth.token)
     return (
         <Navbar bg="light">
@@ -30,12 +29,5 @@ export default function Header(props) {
                 }
             </Container>
         </Navbar>
-
-
-
-
-
-
-
     )
 }

@@ -1,19 +1,27 @@
-import React from "react"  
-import { BrowserRouter, Route, Routes } from "react-router-dom"  
-import Header from "./Components/Header/Header"  
-import Home from "./Components/Home/Home"  
-import Products from "./Components/Products/Products"  
-import Cart from "./Components/Cart/Cart"  
-import Login from "./Components/Login/Login"  
-import { logout } from "./Redux/authSlice"  
-import { useDispatch } from "react-redux"  
-import PrivateRoutes from "./Components/privateRoutes"  
-import 'bootstrap/dist/css/bootstrap.min.css'  
+import React, { useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "./Components/Header/Header";
+import Home from "./Components/Home/Home";
+import Products from "./Components/Products/Products";
+import Cart from "./Components/Cart/Cart";
+import Login from "./Components/Login/Login";
+import { logout, setToken } from "./Redux/authSlice";
+import { useDispatch } from "react-redux";
+import PrivateRoutes from "./Components/privateRoutes";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 export default function App() {
   
   const dispatch = useDispatch()
+
+  useEffect ( () => {
+    const token = localStorage.getItem('authToken')
+    if (token) {
+      dispatch(setToken(token))
+    }
+  }, [dispatch])
+  
   const handleLogOut = () => {
     dispatch(logout())
   }
@@ -29,5 +37,5 @@ export default function App() {
       <Route path="/login" element = { <Login /> } />
     </Routes>
     </BrowserRouter>
-  )  
+  );
 }

@@ -2,27 +2,24 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
     user: null,
-    token: null,
+    token: localStorage.getItem('authToken') || null,
     status: 'idle',
     error: null,
-} 
+}
 
-export const loginUser = createAsyncThunk('auth/loginUser', async (thunkAPI) => {
+export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, thunkAPI) => {
     try {
         const response = await fetch('https://fakestoreapi.com/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                username: "mor_2314",
-                password: "83r5^_"
-            }),
+            body: JSON.stringify(credentials)
         })
 
         if (!response.ok) {
             const errorData = await response.json() 
-            throw new Error(errorData.message || 'Login failed') 
+            throw new Error(errorData.message) 
         }
 
         const data = await response.json() 
@@ -43,6 +40,9 @@ const authSlice = createSlice({
             state.status = 'idle'
             state.token = null
             localStorage.removeItem('authToken') 
+        },
+        setToken: (state, action) => {
+            state.token = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -63,5 +63,5 @@ const authSlice = createSlice({
     }
 })
 
-export const { logout } = authSlice.actions
+export const { logout, setToken } = authSlice.actions
 export default authSlice.reducer
