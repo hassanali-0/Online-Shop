@@ -2,12 +2,13 @@ import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../../Redux/authSlice"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export default function Login() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { status, error } = useSelector((state) => state.auth)
+  const { status } = useSelector((state) => state.auth)
   const token = useSelector((state) => state.auth.token)
 
 
@@ -22,9 +23,42 @@ export default function Login() {
       .then((action) => {
 
         if (loginUser.fulfilled.match(action)) {
-
+          toast.success("Login Successfully", {
+            style: {
+              color: '#ffffff',
+              fontFamily: 'Poppins',
+              padding: '16px',
+              marginTop: "35px"
+            },
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          })
           navigate('/')
-
+        }
+        else if (loginUser.rejected.match(action)) {
+          toast.error("Login Failed", {
+            style: {
+              color: '#ffffff',
+              fontFamily: 'Poppins',
+              padding: '16px',
+              marginTop: "35px",
+              width: "100%"
+            },
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          })
         }
       })
   }
@@ -79,7 +113,7 @@ export default function Login() {
                         {status === 'loading' ? 'Logging in...' : 'Log In'}
                       </button>
                     </div>
-                    {status === 'failed' && <p className="text-danger mt-2">Error: {error}</p>}
+                    {/* {status === 'failed' && <p className="text-danger mt-2">Error: {error}</p>} */}
                   </form>
                 </div>
               </div>
