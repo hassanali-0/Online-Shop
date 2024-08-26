@@ -37,11 +37,11 @@ export default function Add_New_Product() {
             <div className="mb-3" style={{ width: "50%" }}>
               <label className="form-label">Caterogry</label>
               <br />
-              <select class="form-select" aria-label="Default select example">
+              <select class="form-select" aria-label="Default select example" style={{textTransform: "capitalize"}}>
                 <option selected>None</option>
                 {uniqueCategories.map((category, index) => {
                   return (
-                    <option key={index} value={category} style={{textTransform: "capitalize"}}>{category}</option>
+                    <option key={index} value={category}>{category}</option>
                   )
                 })
                 }
